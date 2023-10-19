@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag e Drop</title>
+    <style>
+        body{
+            background-image: url(MC-IG_04.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        .box{
+            height: 200px;
+            width: 200px;
+            border: 1px solid black;
+            margin: 0 50px;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        .box .imagem {
+            background-image: url(omg.png);
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="imagem" draggable="true"></div>
+        </div>
+        <div class="box"></div>
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll(".box")
+        const imagens = document.querySelectorAll(".imagem")
+        let dragImg = null
+        imagens.forEach((imagem) => {
+            imagem.addEventListener("dragstart", () => {
+                dragImg = imagem
+            })
+        })
+
+        boxes.forEach((box) => {
+            box.addEventListener("dragover", (event) => {
+                event.preventDefault();
+                box.classList.add("arrastada")
+            })
+            box.addEventListener("dragleave", () => {
+                box.classList.remove("arrastada")
+            })
+            box.addEventListener("drop", () => {
+                box.appendChild(dragImg);
+                box.classList.remove("arrastada")
+            })
+        })
+    </script>
+</body>
+</html>
